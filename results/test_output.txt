@@ -1,0 +1,18 @@
+test_bfs_dfs_and_disconnected (test_resource_graph.TestResourceGraph.test_bfs_dfs_and_disconnected) ... ok
+test_capacity_validation (test_resource_graph.TestResourceGraph.test_capacity_validation) ... ok
+test_cycle_terminates (test_resource_graph.TestResourceGraph.test_cycle_terminates) ... ok
+test_direction_matters (test_resource_graph.TestResourceGraph.test_direction_matters) ... ok
+test_duplicate_edge_and_self_loop (test_resource_graph.TestResourceGraph.test_duplicate_edge_and_self_loop) ... ok
+test_duplicate_node (test_resource_graph.TestResourceGraph.test_duplicate_node) ... ok
+test_empty_graph (test_resource_graph.TestResourceGraph.test_empty_graph) ... ok
+test_find_node_and_missing (test_resource_graph.TestResourceGraph.test_find_node_and_missing) ... ok
+test_invalid_capacity (test_resource_graph.TestResourceGraph.test_invalid_capacity) ... ok
+test_invalid_node (test_resource_graph.TestResourceGraph.test_invalid_node) ... ok
+test_missing_endpoint (test_resource_graph.TestResourceGraph.test_missing_endpoint) ... ok
+test_remove_edge (test_resource_graph.TestResourceGraph.test_remove_edge) ... ok
+test_remove_node_removes_incoming_edges (test_resource_graph.TestResourceGraph.test_remove_node_removes_incoming_edges) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.001s
+
+OK
