@@ -3,13 +3,16 @@
 
 **MSCS 532: Algorithms and Data Structures**
 
+### Peter Nwochie Tiewah  
+
+
 ## Overview
 
 This project continues the Nile Delta water-distribution graph developed in Phase 2. It represents reservoirs, canals, and farms as vertices connected by directed edges with capacity values.
 
-Phase 3 focuses on improving performance and scalability while preserving the original implementation for comparison.
+Phase 3 focuses on optimizing graph operations, improving scalability, and evaluating performance while preserving the original Phase 2 implementation for comparison.
 
-The project models graph connectivity and capacity constraints, not a complete physical water-distribution system.
+The project models graph connectivity and static capacity constraints. It is not a physical hydraulic simulation.
 
 ## Phase 2 and Phase 3
 
@@ -28,11 +31,11 @@ The original implementation is preserved in `src/resource_graph.py`.
 
 ### Phase 3: Optimized Implementation
 
-The new `OptimizedResourceGraph` introduces:
+The new `OptimizedResourceGraph` extends the original graph and introduces:
 
 - Reverse-adjacency indexing for faster node deletion
 - Consistency checks for incoming and outgoing edges
-- Minimum-hop feasible route searching
+- Minimum-hop feasible route searching using BFS
 - Widest-path searching using a priority queue
 - Additional automated tests and stress testing
 - Performance and memory comparisons against Phase 2
@@ -44,7 +47,7 @@ The optimized implementation is located in `src/optimized_graph.py`.
 - Python 3.10 or later
 - Matplotlib for generating performance graphs
 
-The graph implementations, automated tests, and benchmarks use Python's standard library.
+The graph implementations, automated tests, and benchmarks use Python's standard library. Matplotlib is only required to generate the visualization.
 
 Install the optional plotting dependency:
 
@@ -54,63 +57,79 @@ python3 -m pip install -r requirements.txt
 
 ## Running the Project
 
-Run the following commands from the project root.
+Run all commands from the project root.
 
-### 1. Run all tests
+### 1. Run Automated Tests
 
 ```bash
 python3 -m unittest discover -s tests -v
 ```
 
-The project contains 25 automated tests, including the 13 original Phase 2 tests.
+The project contains 25 automated tests, including 13 original Phase 2 tests and 12 new Phase 3 tests.
 
-### 2. Run the demonstration
+All 25 tests passed during local testing.
+
+### 2. Run the Demonstration
 
 ```bash
 python3 -m examples.demo
 ```
 
-The demonstration shows graph traversal, feasible route searching, widest-path searching, and index maintenance after node deletion.
+The demonstration uses a small synthetic water-distribution network to show graph traversal, feasible route searching, widest-path searching, and reverse-index maintenance after node deletion.
 
-### 3. Run performance benchmarks
+### 3. Run Performance Benchmarks
 
 ```bash
 python3 -m benchmark.benchmark_phase3
 ```
 
-The benchmark compares the original and optimized implementations using graphs containing 1,000, 5,000, 10,000, and 20,000 vertices.
+The benchmark compares the original and optimized implementations using directed graphs containing:
 
-It measures:
+- 1,000 vertices
+- 5,000 vertices
+- 10,000 vertices
+- 20,000 vertices
 
-- Graph construction
+Each vertex connects to up to three subsequent vertices, creating a sparse directed network.
+
+The benchmark measures:
+
+- Graph construction time
 - Node lookup
 - BFS traversal
 - DFS traversal
 - Node deletion
-- Peak traced memory during construction
+- Peak traced Python memory during construction
 
-The benchmark writes results to:
+Timing results use the median of nine trials, except graph construction, which uses five trials.
+
+The benchmark writes:
 
 - `results/benchmark_results.csv`
 - `results/environment.txt`
 
-### 4. Generate performance graphs
+Rerunning the benchmark overwrites these results and may produce different timings depending on the execution environment.
+
+### 4. Generate the Performance Graph
 
 ```bash
 python3 -m benchmark.plot_results
 ```
 
-This script reads the recorded benchmark results and generates a colored comparison graph at:
+The plotting script reads `results/benchmark_results.csv` and generates:
 
 `figures/performance_graph.png`
 
-The plot distinguishes the original and optimized implementations and displays node-deletion speedups.
+The colored graph compares node-deletion times and displays the speedup achieved by the optimized implementation.
 
-## Project Files
+The plotting script does not rerun the benchmark or modify the CSV data.
+
+## Project Structure
 
 ```text
 nile-delta-resource-allocation/
 ├── benchmark/
+│   ├── __init__.py
 │   ├── benchmark_phase3.py
 │   └── plot_results.py
 ├── examples/
@@ -130,92 +149,155 @@ nile-delta-resource-allocation/
 ├── tests/
 │   ├── test_phase2_original.py
 │   └── test_phase3.py
-├── Phase_3_Final_Report.docx
+├── Nile_Delta_Phase_3_Latest_Benchmark.docx
+├── .gitignore
 ├── README.md
 └── requirements.txt
 ```
 
 ## Performance Results
 
-Benchmarks were executed using Python 3.15.2 on macOS 27.0.1 (ARM64).
+Benchmarks were executed using:
 
-The results below show median node-deletion execution times.
+- **Python:** 3.15.2
+- **Operating system:** macOS 27.0.1
+- **Architecture:** ARM64
+
+### Node Deletion Performance
+
+The following table contains median execution times from the final recorded benchmark.
 
 | Vertices | Phase 2 (ms) | Phase 3 (ms) | Speedup |
 |---|---:|---:|---:|
-| 1,000 | 0.019709 | 0.001292 | 15.3x |
-| 5,000 | 0.099917 | 0.001959 | 51.0x |
-| 10,000 | 0.200250 | 0.002750 | 72.8x |
-| 20,000 | 0.521708 | 0.005917 | 88.2x |
+| 1,000 | 0.020250 | 0.001250 | 16.2x |
+| 5,000 | 0.097041 | 0.001958 | 49.6x |
+| 10,000 | 0.208833 | 0.003000 | 69.6x |
+| 20,000 | 0.492833 | 0.005458 | 90.3x |
 
-At 20,000 vertices, the optimized implementation achieved approximately 88.2 times faster node deletion.
+At 20,000 vertices, the original implementation required approximately 0.4928 milliseconds to delete a node, compared with 0.0055 milliseconds for the optimized implementation.
 
-However, the optimization introduces additional overhead:
+This represents a **90.3x improvement in node-deletion performance** for the tested sparse graph.
 
-- Graph construction was approximately 22.2% slower.
-- Peak traced memory increased approximately 22.6%.
-- BFS and DFS performance remained broadly similar.
+The improvement occurs because the optimized graph maintains incoming-edge references. Instead of searching every node for incoming connections, deletion processes only the edges associated with the selected vertex.
 
-The results demonstrate that reverse-adjacency indexing can improve node-deletion performance significantly in sparse graphs while requiring additional memory.
+### Performance Trade-offs
 
-Benchmark timings depend on the execution environment and may differ between runs.
+The optimization introduces additional overhead.
 
-## Design and Complexity
+At 20,000 vertices:
 
-Let V represent the number of vertices and E the number of edges.
+| Metric | Phase 2 | Phase 3 |
+|---|---:|---:|
+| Graph construction | 34.652667 ms | 41.439625 ms |
+| Peak traced memory | 20.011086 MiB | 24.526794 MiB |
+| BFS traversal | 3.081208 ms | 2.947417 ms |
+| DFS traversal | 3.892667 ms | 3.912166 ms |
+
+The optimized implementation required approximately:
+
+- **19.6% more construction time**
+- **22.6% more peak traced memory**
+
+BFS and DFS performance remained broadly similar. Their small measured differences do not establish a meaningful traversal improvement.
+
+These results demonstrate a trade-off between faster node deletion and additional memory and construction overhead.
+
+The reported measurements apply to synthetic sparse graphs. Performance may differ for dense graphs, high-degree vertices, other workloads, and different computers.
+
+## Design and Complexity Analysis
+
+Let:
+
+- V = number of vertices
+- E = number of directed edges
+- d-in = incoming degree of a selected vertex
+- d-out = outgoing degree of a selected vertex
 
 Both implementations use dictionaries and adjacency lists requiring O(V + E) storage.
 
-The optimized graph introduces an additional incoming-edge index, also requiring O(V + E) space.
+The Phase 3 implementation introduces an additional reverse-adjacency index, which also requires O(V + E) space.
 
-### Time Complexity
+### Time Complexity Comparison
 
 | Operation | Phase 2 | Phase 3 |
 |---|---|---|
 | Find node | Expected O(1) | Expected O(1) |
 | Add edge | Expected O(1) | Expected O(1) |
-| Delete node | Expected O(V + degree) | Expected O(in-degree + out-degree) |
+| Delete node | Expected O(V + d-out) | Expected O(d-in + d-out) |
 | BFS | O(V + E) | O(V + E) |
 | DFS | O(V + E) | O(V + E) |
 
-The main performance improvement occurs during node deletion because the optimized graph no longer needs to scan unrelated vertices.
+The primary improvement occurs during node deletion.
+
+The original implementation scans all remaining adjacency dictionaries to remove incoming references. The optimized implementation stores these incoming references in advance, allowing it to access the affected nodes directly.
+
+Maintaining the additional index introduces extra work during edge insertion and deletion.
 
 ## Testing and Validation
 
-All 25 automated tests passed during local testing.
+The project contains 25 automated tests.
 
-Testing includes:
+The original Phase 2 tests verify the functionality of the initial graph implementation.
 
-- Original Phase 2 functionality
+The additional Phase 3 tests examine:
+
+- Compatibility with the original implementation
 - Reverse-index consistency
 - Node and edge deletion
-- Invalid inputs
+- Invalid inputs and capacities
 - Cycles and disconnected graphs
 - High-degree vertices
 - Randomized graph modifications
-- A 12,000-node stress test
 - Capacity-aware route searching
+- A 12,000-node stress test
+
+All 25 tests passed on the development machine.
+
+The tests provide evidence that the optimized implementation preserves the expected behavior of Phase 2 while supporting the additional Phase 3 functionality.
 
 ## Limitations
 
-This implementation does not simulate physical water movement, allocate water between consumers, or enforce flow conservation.
+This project is an educational graph implementation rather than a complete water-distribution management system.
 
-The minimum-hop route minimizes the number of edges rather than geographic distance.
+The current implementation does not:
 
-The widest-path algorithm maximizes the minimum capacity along a single route; it does not calculate maximum total network flow.
+- Simulate physical water movement
+- Reserve or allocate water
+- Enforce supply-and-demand balances
+- Model pumping costs, water loss, or changing water levels
+- Calculate total maximum flow across multiple routes
+- Provide persistence or concurrent graph updates
 
-Future development could include demand allocation, persistence, real geographic data, concurrency controls, and hydraulic modeling.
+The minimum-hop feasible route minimizes the number of connections rather than geographic distance.
+
+The widest-path algorithm maximizes the minimum capacity along one route. It does not calculate the total flow that could be distributed through the network.
+
+Future development could include actual resource allocation, flow conservation, persistence, concurrency controls, geographic information, and hydraulic modeling.
 
 ## Academic Report
 
-The accompanying `Phase_3_Final_Report.docx` documents the optimization, theoretical complexity, scaling approach, testing, experimental results, trade-offs, and future improvements.
+The accompanying report, `Nile_Delta_Phase_3_Latest_Benchmark.docx`, documents:
+
+- Phase 2 background and original implementation
+- Phase 3 optimization techniques
+- Scaling strategy and theoretical complexity
+- Advanced testing and validation
+- Measured performance comparisons
+- Memory and execution-time trade-offs
+- Limitations and future improvements
+
+The report includes a performance table, a colored graph, and peer-reviewed academic references.
 
 ## GitHub and Development History
 
-Repository:
-
+**Repository:**  
 https://github.com/Sleekice/nile-delta-resource-allocation
 
-Phase 2 established the original proof of concept.
+**Phase 3 Branch:**  
+https://github.com/Sleekice/nile-delta-resource-allocation/tree/phase-3-optimization
 
-Phase 3 continues the same project on the `phase-3-optimization` branch, preserving the original implementation and Git history for comparison.
+Phase 2 established the original proof-of-concept implementation.
+
+Phase 3 extends that work using reverse-adjacency indexing, additional routing algorithms, expanded testing, and performance evaluation.
+
+The original Phase 2 implementation remains available for comparison, and the repository's Git history documents the project's development across both phases.
