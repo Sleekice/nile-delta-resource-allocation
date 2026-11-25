@@ -1,18 +1,30 @@
-test_bfs_dfs_and_disconnected (test_resource_graph.TestResourceGraph.test_bfs_dfs_and_disconnected) ... ok
-test_capacity_validation (test_resource_graph.TestResourceGraph.test_capacity_validation) ... ok
-test_cycle_terminates (test_resource_graph.TestResourceGraph.test_cycle_terminates) ... ok
-test_direction_matters (test_resource_graph.TestResourceGraph.test_direction_matters) ... ok
-test_duplicate_edge_and_self_loop (test_resource_graph.TestResourceGraph.test_duplicate_edge_and_self_loop) ... ok
-test_duplicate_node (test_resource_graph.TestResourceGraph.test_duplicate_node) ... ok
-test_empty_graph (test_resource_graph.TestResourceGraph.test_empty_graph) ... ok
-test_find_node_and_missing (test_resource_graph.TestResourceGraph.test_find_node_and_missing) ... ok
-test_invalid_capacity (test_resource_graph.TestResourceGraph.test_invalid_capacity) ... ok
-test_invalid_node (test_resource_graph.TestResourceGraph.test_invalid_node) ... ok
-test_missing_endpoint (test_resource_graph.TestResourceGraph.test_missing_endpoint) ... ok
-test_remove_edge (test_resource_graph.TestResourceGraph.test_remove_edge) ... ok
-test_remove_node_removes_incoming_edges (test_resource_graph.TestResourceGraph.test_remove_node_removes_incoming_edges) ... ok
+test_bfs_dfs_and_disconnected (test_phase2_original.TestResourceGraph.test_bfs_dfs_and_disconnected) ... ok
+test_capacity_validation (test_phase2_original.TestResourceGraph.test_capacity_validation) ... ok
+test_cycle_terminates (test_phase2_original.TestResourceGraph.test_cycle_terminates) ... ok
+test_direction_matters (test_phase2_original.TestResourceGraph.test_direction_matters) ... ok
+test_duplicate_edge_and_self_loop (test_phase2_original.TestResourceGraph.test_duplicate_edge_and_self_loop) ... ok
+test_duplicate_node (test_phase2_original.TestResourceGraph.test_duplicate_node) ... ok
+test_empty_graph (test_phase2_original.TestResourceGraph.test_empty_graph) ... ok
+test_find_node_and_missing (test_phase2_original.TestResourceGraph.test_find_node_and_missing) ... ok
+test_invalid_capacity (test_phase2_original.TestResourceGraph.test_invalid_capacity) ... ok
+test_invalid_node (test_phase2_original.TestResourceGraph.test_invalid_node) ... ok
+test_missing_endpoint (test_phase2_original.TestResourceGraph.test_missing_endpoint) ... ok
+test_remove_edge (test_phase2_original.TestResourceGraph.test_remove_edge) ... ok
+test_remove_node_removes_incoming_edges (test_phase2_original.TestResourceGraph.test_remove_node_removes_incoming_edges) ... ok
+test_bfs_dfs_and_capacity_equal_to_original (test_phase3.TestPhase2Compatibility.test_bfs_dfs_and_capacity_equal_to_original) ... ok
+test_cycles_and_disconnected (test_phase3.TestPhase2Compatibility.test_cycles_and_disconnected) ... ok
+test_duplicate_and_invalid_capacity_do_not_mutate_index (test_phase3.TestPhase2Compatibility.test_duplicate_and_invalid_capacity_do_not_mutate_index) ... ok
+test_node_removal_behaves_the_same (test_phase3.TestPhase2Compatibility.test_node_removal_behaves_the_same) ... ok
+test_unknown_node_and_edge (test_phase3.TestPhase2Compatibility.test_unknown_node_and_edge) ... ok
+test_high_degree_hub (test_phase3.TestPhase3Routes.test_high_degree_hub) ... ok
+test_incoming_and_outgoing_maintenance (test_phase3.TestPhase3Routes.test_incoming_and_outgoing_maintenance) ... ok
+test_large_sparse_graph_stress (test_phase3.TestPhase3Routes.test_large_sparse_graph_stress) ... ok
+test_randomized_mutation_matches_baseline (test_phase3.TestPhase3Routes.test_randomized_mutation_matches_baseline) ... ok
+test_route_same_node_and_invalid_quantity (test_phase3.TestPhase3Routes.test_route_same_node_and_invalid_quantity) ... ok
+test_shortest_feasible_route_filters_weak_edges (test_phase3.TestPhase3Routes.test_shortest_feasible_route_filters_weak_edges) ... ok
+test_widest_path_finds_bottleneck_optimum (test_phase3.TestPhase3Routes.test_widest_path_finds_bottleneck_optimum) ... ok
 
 ----------------------------------------------------------------------
-Ran 13 tests in 0.001s
+Ran 25 tests in 0.155s
 
 OK

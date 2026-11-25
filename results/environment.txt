@@ -1,0 +1,6 @@
+Python: 3.15.2
+Platform: macOS-27.0.1-arm64-arm-64bit-Mach-O
+Vertices: (1000, 5000, 10000, 20000)
+Trials: 9 timing trials (build: 5)
+Sparse directed graph: each vertex connects to up to three successors.
+All values are measured locally; timings are environment-dependent.

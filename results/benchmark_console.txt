@@ -1,0 +1,16 @@
+Benchmarking 1,000 vertices...
+Benchmarking 5,000 vertices...
+Benchmarking 10,000 vertices...
+Benchmarking 20,000 vertices...
+Python: 3.13.5
+Platform: Linux-6.18.57-x86_64-with-glibc2.41
+Vertices: (1000, 5000, 10000, 20000)
+Trials: 9 timing trials (build: 5)
+Sparse directed graph: each vertex connects to up to three successors.
+All values are measured locally; timings are environment-dependent.
+
+Wrote results/benchmark_results.csv
+  1000 nodes: baseline 0.0322ms, optimized 0.0045ms, ratio 7.2x
+  5000 nodes: baseline 0.1947ms, optimized 0.0067ms, ratio 29.1x
+ 10000 nodes: baseline 0.4775ms, optimized 0.0116ms, ratio 41.1x
+ 20000 nodes: baseline 1.3081ms, optimized 0.0153ms, ratio 85.3x

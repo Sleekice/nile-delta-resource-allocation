@@ -1,5 +1,5 @@
+"""The 13 original Phase 2 tests, retained to verify regression behavior."""
 import unittest
-
 from src.resource_graph import ResourceGraph
 
 

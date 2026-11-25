@@ -1,1 +1,1 @@
-"""Nile Delta proof-of-concept graph package."""
+"""Graph implementations for the Nile Delta resource allocation project."""

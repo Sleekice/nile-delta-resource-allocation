@@ -1,11 +1,5 @@
-Adjacency: {'R': ['A', 'B'], 'A': ['F1', 'F2'], 'B': ['F2', 'F3'], 'F1': [], 'F2': [], 'F3': []}
-Search F2: Node(node_id='F2', name='Farm Two', kind='farm')
-BFS from R: ['R', 'A', 'B', 'F1', 'F2', 'F3']
-DFS from R: ['R', 'A', 'F1', 'F2', 'B', 'F3']
-R reaches F2: True
-Alternate routes to F2: True True
-R -> B -> F3 supports 50 units: False
-After removing B -> F3, reachable: False
-After removing F1, neighbors of A: ['F2']
-
-
+BFS: ['R', 'A', 'B', 'F']
+50-unit feasible route: ['R', 'A', 'F']
+Widest route: (['R', 'A', 'F'], 60.0)
+After removing A, index valid: True
+After removing A, 50-unit feasible route: None
